@@ -3,7 +3,7 @@ import { Router } from "express";
 import path from 'path'
 import { fileURLToPath } from "url";
 const adminRouter=Router();
-import { getAddProduct, postAddProduct, getProducts} from '../controllers/admin.js';
+import { getAddProduct, postAddProduct, getProducts, getEditProduct, postEditProduct} from '../controllers/admin.js';
 
 
 //const products=[];
@@ -21,13 +21,16 @@ adminRouter.get('/add-product', getAddProduct);
 adminRouter.get('/products', (getProducts));
     
 
-
-
 // /admin/add-product=> POST
 
 adminRouter.post('/add-product',postAddProduct);
 
 // export {adminRouter, products};
+
+
+adminRouter.get('/edit-product/:productId', getEditProduct)
+
+adminRouter.post('/edit-product', postEditProduct );
 
 export {adminRouter};
 
