@@ -36,7 +36,6 @@ export const getEditProduct=(req, res, next)=>{
         if(!product){
             return res.redirect('/');
         }
-
         res.render('admin/edit-product', {
             pageTitle: 'Edit Product', 
             path:'/admin/edit-product',
@@ -47,9 +46,20 @@ export const getEditProduct=(req, res, next)=>{
      
  }
 
+
+ 
+
  export const postEditProduct=(req,res, next)=>{
     const prodId=req.body.productId;
-    
+    const updatedTitle=req.body.title;
+    const updatedPrice= req.body.price;
+    const updatedImageUrl=req.body.imageUrl;
+    const updatedDesc= req.body.description;
+    const updatedProduct= new Product(prodId, updatedTitle,updatedPrice, updatedImageUrl, updatedDesc);
+
+    updatedProduct.save();
+
+    res.redirect('/admin/products');
  }
 
 
@@ -62,3 +72,11 @@ export const getProducts=(req, res, next)=>{
         });
     });
 };
+
+
+export const postDeleteProduct=(req, res, next)=>{
+    const prodId= req.body.productId;
+    Product.deleteById(prodId);
+    res.redirect('/admin/products')
+    
+}

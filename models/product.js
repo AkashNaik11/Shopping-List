@@ -1,6 +1,7 @@
 import fs, { readFile } from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url';
+import {Cart} from './card.js'
 
 
 //const products=[];
@@ -38,26 +39,7 @@ export default class Product{
 
     }
     save(){
-        // products.push(this)
-       
-        // const filePath = path.resolve(__dirname, '../data/products.json');
-        // fs.readFile(filePath, (err, fileContent)=>{
-        //     let products=[];
-        //     if (!err && fileContent.length > 0) {
-        //         try {
-        //               products = JSON.parse(fileContent);
-        //                    } catch (parseError) {
-        //                       console.log('Error parsing JSON:', parseError);
-        //                   }
-        //               }
 
-        //     products.push(this);
-        //     fs.writeFile(filePath, JSON.stringify(products), (err)=>{
-        //         console.log(err);
-        //     })
-        // })
-      
-        
         getProductsFromFile(products=>{
             if(this.id){
                 const existingProductIndex= products.findIndex(prod=>prod.id===this.id)
@@ -76,11 +58,18 @@ export default class Product{
             }
             
         });
+    }
 
-       
-
-
-
+    static deleteById(id){
+        getProductsFromFile(products=>{
+            const product=products.find(prod=>prod.id===id);
+            const updateproduct =products.filter(prod=>prod.id !==id);
+            fs.writeFile(filePath, JSON.stringify(updateproduct), (err)=>{
+                if (!err){
+                    Cart.deleteProduct(id, product.price );
+                }
+            });
+        });
     }
 
     static fetchAll(cb){
