@@ -4,7 +4,7 @@ import path from 'path'
 import { fileURLToPath } from "url";
 // import rootDir from '../util/path.js'
 // import { products } from "./admin.js";
-import {getProducts, getIndex, getCart, getCheckOut, getOrders, getProduct, postCart} from '../controllers/shop.js'
+import {getProducts, getIndex, getCart, getCheckOut, getOrders, getProduct, postCart, postCartDeleteProduct, postOrder} from '../controllers/shop.js'
 
 const shopRouter=Router();
 
@@ -23,8 +23,12 @@ shopRouter.get('/cart', getCart);
 
 shopRouter.post('/cart',postCart);
 
+shopRouter.post('/cart-delete-item', postCartDeleteProduct);
+
+shopRouter.post('/create-order', postOrder);
+
 shopRouter.get('/orders',getOrders);
 
-shopRouter.get('/checkout', getCheckOut);
+// shopRouter.get('/checkout', getCheckOut);
 
 export default shopRouter;

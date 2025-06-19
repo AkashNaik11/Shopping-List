@@ -1,0 +1,1 @@
+sequelize.sync({force:true})
